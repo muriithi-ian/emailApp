@@ -3,8 +3,7 @@ package email;
 public class EmailApp {
     public static void main(String[] args) {
     Email em1 = new Email("Ian", "Muriithi");
-        System.out.println(em1.setDepartment());
-        System.out.println(em1.setPassword());
-
+        em1.setAlternateEmail("imuriithiian@gmail.com");
+        System.out.println(em1.showInfo());;
     }
 }

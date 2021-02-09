@@ -7,16 +7,26 @@ public class Email {
     private String firstName;
     private String lastName;
     private String password;
-    private int defaultPasswordLength;
+    private String email;
+    private int defaultPasswordLength = 10;
     private String department;
     private String alternateEmail;
-    private int mailboxCapacity;
+    private int mailboxCapacity = 100;
+    private String companySuffix = "company.com";
 
     public Email(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.defaultPasswordLength = 10;
         System.out.println("Email created: " + this.firstName + " " + this.lastName);
+
+        // set department
+        this.department = setDepartment();
+
+        // set password
+        this.password = generateRandomPassword();
+
+        // generate email
+        this.email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@" + department + "." + companySuffix;
     }
 
     public String getFirstName() {
@@ -35,20 +45,22 @@ public class Email {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public String setPassword() {
+    private String generateRandomPassword() {
         String passwordSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$";
         char[] password = new char[defaultPasswordLength];
-        for (int i= 0; i<defaultPasswordLength; i++){
-            int rand =(int) (Math.random()*passwordSet.length());
-            password [i] = passwordSet.charAt(rand);
+        for (int i = 0; i < defaultPasswordLength; i++) {
+            int rand = (int) (Math.random() * passwordSet.length());
+            password[i] = passwordSet.charAt(rand);
         }
-        return this.password = new String(password);
+        return new String(password);
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
+    public String getPassword() {
+        return password;
     }
 
     public String getDepartment() {
@@ -73,7 +85,7 @@ public class Email {
                 department = "none";
                 break;
         }
-        return this.department = department;
+        return department;
     }
 
     public String getAlternateEmail() {
@@ -90,5 +102,21 @@ public class Email {
 
     public void setMailboxCapacity(int mailboxCapacity) {
         this.mailboxCapacity = mailboxCapacity;
+    }
+
+    public String getCompanySuffix() {
+        return companySuffix;
+    }
+
+    public void setCompanySuffix(String companySuffix) {
+        this.companySuffix = companySuffix;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String showInfo(){
+        return "Name: "+ getFirstName()+" "+getLastName()+"\nDepartment: "+ getDepartment()+"\nEmail: "+getEmail()+"\nAlternate Email: "+ getAlternateEmail()+"\nMailbox capacity: "+ getMailboxCapacity();
     }
 }
